@@ -16,5 +16,4 @@ while counter < 3:
     counter += 1
 else:
     print( 'answer:',number)
-
 print('This circe is done')
