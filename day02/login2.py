@@ -6,7 +6,7 @@ password=getpass.getpass('password:')
 if  username == 'bob' and  password == '123456':
     print('Login successful')
 else:
-    print('Login incorrect')   #到命令行执行
+    print('Login incorrect')       #到命令行执行
 
 
 
