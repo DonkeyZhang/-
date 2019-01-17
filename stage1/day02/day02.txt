@@ -1,0 +1,201 @@
+not True or False
+not True or True        #优先级高
+(not True) or True
+
+
+数据类型
+1.数字
+（1）简单理解为整数和小数即可
+（2）布尔可以理解为是特殊的整数，使用True和False表示，值为1和0
+（3）python表示整数的时候，如果没有前缀表示10进制数，
+       2进制0b开头，8进制数0o开头, 16进制0x开头
+
+True + 1
+False + 0
+0b11=3
+11
+0o11=9
+0o23=2x8+3=19
+0x11=1*16+1=17
+权限是八进制
+os.chmod('/tmp/hosts',0o400)
+
+ll /tmp/hosts
+>>> import os
+>>> os.chmod('/tmp/hosts', 400)
+[root@room8pc16 day01]# ll /tmp/hosts
+-rw--w----. 1 root root 9806 1月  12 09:40 /tmp/hosts
+>>> os.chmod('/tmp/hosts', 0o400)
+[root@room8pc16 day01]# ll /tmp/hosts
+-r--------. 1 root root 9806 1月  12 09:40 /tmp/hosts
+
+2.字符串
+(1)在python 中,单双引号没有任何区别
+(2)字符串中如果有未确定的数据，可以使用占位符
+>>> '%s is a pig ' % 100
+'100 is a pig '
+>>> '%s is a pig ' % 'lala'
+'lala is a pig '
+>>> '%s is %s a pig ' % ('lala',100)
+'lala is 100 a pig '
+>>> '%s is %s  pig ' % ('lala','big')
+'lala is big  pig'
+(3)三引号,三个连续单引号或双引号,它可以保留输入格式
+words =  'hello\nnihao'                       #可读性差
+>>> print(words)
+hello
+nihao
+
+>>> dicts = ''' hello
+... nihao
+... hello
+... welcome'''
+>>> print (dicts)
+hello
+nihao
+hello
+>>> dicts                                    #加了\n
+' hello \nnihao\nhello\nwelcome'
+
+(4)字符串常用方法
+>>> py_str='python'
+>>> len(py_str)
+6
+
+>>> 't' in  py_str
+True
+>>> 'to' in  py_str   #连续的
+False
+>>> 'th' in  py_str
+True
+'to' not  in  py_str
+True
+
+>>> py_str[0]          #建议写变量
+'p'
+>>>'python'[0]        #取出第一个
+'p'
+>>>'python'[-1]       #倒数第一个
+'n'
+>>> py_str[-6]        #倒数最后一个
+'p'
+>>> 'python'[0:1]     #起始下标算,结尾下标不算
+'p'
+>>> 'python'[0:2]
+'py'
+>>> 'python'[0:99]    #显示全部
+'python'
+>>> 'python'[:]       #取所有
+'python'
+>>> 'python'[::1]     #步长为1
+'python'
+>>> 'python'[::2]
+'pto'
+>>> 'python'[1::2]   #以1为开头,步长为2
+'yhn'
+>>> 'python'[::-1]   #步长为负,表示自右向左取
+'nohtyp'
+
+(5)拼接和重复
+>>> py_str + '10'
+'python10'
+>>> 'python'+'10'
+'python10'
+>>> 'python'*2
+'pythonpython'
+>>> '*' * 6
+'******'
+
+4.列表
+>>> alist = [10, 20, 'bob', 'alice', [1, 2]]
+>>> alist[-1]
+[1, 2]
+>>> alist[1]
+20
+>>> alist[0]
+10
+>>> '10' in alist
+False
+>>> 10 in alist
+True
+>>> 20 in alist
+True
+>>> 'bob' in alist
+True
+>>> '1' in alist      #一个整体
+False
+>>> '[1.2]' in alist
+False
+>>> '[1,2]' in alist
+False
+>>> '[1, 2]' in alist
+False
+>>> [1, 2] in alist
+True
+
+>>> alist
+[10, 20, 'bob', 'alice', [1, 2]]
+>>> alist[-1]=10                    #修改最后一项
+>>> alist
+[10, 20, 'bob', 'alice', 10]
+>>> alist.append(2)                 #追加到后面
+>>> alist
+[10, 20, 'bob', 'alice', 10, 2]
+>>> alist.append(4)
+>>> alist.append('haha')
+>>> alist
+[10, 20, 'bob', 'alice', 10, 2, 4, 'haha']
+
+5.元组
+>>> atuple = (1 ,2 ,3 , 'bob')
+>>> atuple[-1]=1
+
+6.字典
+>>> adict = { 'name':"bob", 'age':20, 'sex':2}
+>>> adict
+{'name': 'bob', 'age': 20, 'sex': 2}
+>>> adict
+{'name': 'bob', 'age': 20, 'sex': 2}
+>>> 'bob'in adict
+False
+>>> 'name'in adict
+>>> adict[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 0
+>>> adict['name']
+'bob'
+
+7.数据类型比较:重要 背下来
+
+按存储模型分类
+    标量类型:数值、字符串
+    容器类型:列表、元组、字典
+
+按更新模型分类:
+    可变类型:列表、字典
+    不可变类型:数字、字符串、元组
+    按访问模型分类
+    直接访问:数字
+    顺序访问:字符串、列表、元组
+    映射访问:字典
+ py_str = 'python'
+ py_str = 'Python' # -->内存里重新赋值 不可变的类型
+ py_str =6660
+
+ alist = 12  #数值
+ alist = 'bob' #字符
+ alist1 = [10, 20, 30, 'bob'] #列表
+ alist2 = (10, 20, 30, 'bob') #元组
+ alist3 = {'number':10, age:20, , name:'bob'} #字典
+
+判断:
+1.前面讲的数据类型可以当作判断条件
+(1) 任何值为0的数字都是False，非0是True
+(2) 任何非空对象都是True，空对象是False
+
+2.
+
+
+
+

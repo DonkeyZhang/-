@@ -1,0 +1,8 @@
+python 语法风格布局:
+#!/usr/bin.env python3
+'描述该模块的功能等'
+import string #导入模块
+
+all_chs = str.   #全局变量
+
+calss Myclass:
