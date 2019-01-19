@@ -1,0 +1,33 @@
+python 导入模块
+
+导入模块的方法
+import os
+import time
+import pickle #可读性不好,不推荐
+from random import randint, choice #常用
+import pickle as p
+
+
+mkdir mydemo
+
+import mydemo.foo
+mydemo.foo.hi
+mydemo.star()
+单向加密的作用
+1'存储加密的密码/etc/shadow
+2'校验文件
+
+>>> import os
+>>> import tarfile
+>>> tar = tarfile.open('/tmp/security.tar.gz', 'w:gz')
+>>> tar.add('/etc/hosts')
+>>> os.chdir('/etc')
+>>> tar.close()
+
+
+>>> os.mkdir('/tmp/demo')
+>>> os.chdir('/tmp/demo')
+>>> tar =tarfile.open('/tmp/security.tar.gz','r:gz')
+>>> tar.extractall()
+
+--->/tmp/etc/hosts
