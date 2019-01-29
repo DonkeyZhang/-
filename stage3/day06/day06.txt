@@ -1,0 +1,50 @@
+
+                            client 50 -->http://192.168.4.253
+                                           |
+                                        HA(nginx+keepalived)
+                                           |       /        \
+第一层高可用调度层            nginx_88(192.168.4.88)  nginx_99(192.168.4.99)
+                                           |                                                            --->    加入redis/memcache缓存层
+                                           |
+                                           |
+                                           LB
+                                          /   \
+第二层负载均衡web服务器    web_33(LNMP)  web_44(LNMP)--->/usr/local/nginx/html
+                                          \    /                       |
+                                             |                         |----挂载到192.168.4.30:/web
+                                             |                         |
+逻辑卷+NFS共享            webstorage_30(192.168.4.30)--->/web(index.html、reg.php)
+                                             |
+                                             |
+                                             |
+第三层maxscale读写分离                 maxscale_77(192.168.4.77)         MHA集群
+                                        /            \
+                              mysql_11(master)     mysql_22(slave)
+                                          \         /
+mysql数据库目录用逻辑卷   /dev/vdb /dev/vdc-->/mylv--> /var/lib/mysql
+
+-->svn服务器  监控服务器  安全服务器
+
+--->优化
+1)可以再加一个LNMP服务器(网站服务器可以是LAMP/LNMP/tomcat+mysql+java)
+2)可以做一个mysql-MHA服集群务器
+3)webstorage可以做成ceph分布式存储/hdoop的HDFS
+4)可以再加redis/memcache缓存服务器
+-->varnish
+
+5)nginx-->Haproxy
+6)搭个gitlab
+7)搭个ansible
+
+
+###############################
+ git客户端           ------->      gitlab服务端   (程序员写的代码 上传 打tags-->版本)
+                                       |
+                                       |
+                                      jenkins服务器 (通过jenkins同步代码,同步不同的html不同的版本))
+                                       |           (jenkins里有执行脚本,每更新一次就将一个不同库的版本打成tar包同步到/var/www/html下)
+      ansible---> 执行python脚本  web web web web web web web
+      (执行脚本 从jenkins里自动部署最新的网页) 可以考虑不只是html ,一个文件夹就行了,记得用maven打成war包
+
+
+
